@@ -30,9 +30,11 @@ public class Mysql {
     private static String url;
     private static String username;
     private static String password;
+    private static String table;
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        
+        readProperties();
+        selectAllfromQuery();
     }
     
     public static void readProperties() throws FileNotFoundException, IOException{
@@ -45,6 +47,7 @@ public class Mysql {
         url =jdbc.getProperty("url");
         username = jdbc.getProperty("username");
         password = jdbc.getProperty("password");
+        table = jdbc.getProperty("table");
     }
     
     public static void selectAllfromQuery() throws ClassNotFoundException, SQLException{
@@ -55,7 +58,7 @@ public class Mysql {
         properties.put("password", password);
         Connection connection = (Connection) DriverManager.getConnection(url, properties);
         Statement stmt = connection.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM data");
+        ResultSet result = stmt.executeQuery("SELECT * FROM "+table);
         while(result.next()) {
             System.out.printf("%s, %s, %s%n", result.getString(1), result.getString(2), result.getString(3));
         }
@@ -73,7 +76,7 @@ public class Mysql {
         properties.put("password", password);
         Connection connection = (Connection) DriverManager.getConnection(url, properties);
         Statement stmt = connection.createStatement();
-        ResultSet result = stmt.executeQuery("SELECT * FROM data WHERE username='"+loginname+"' AND password='"+loginpass+"'");
+        ResultSet result = stmt.executeQuery("SELECT * FROM "+table+" WHERE username='"+loginname+"' AND password='"+loginpass+"'");
         if (result.next()){
             connection.close();
             return true;
