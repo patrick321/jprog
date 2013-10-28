@@ -9,7 +9,6 @@
 package mysql;
 
 import com.mysql.jdbc.Connection;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +31,7 @@ public class Mysql {
     private static String password;
     private static String table;
     
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
         readProperties();
         selectAllfromQuery();
@@ -42,7 +42,8 @@ public class Mysql {
          * Projektordner eingelesen und gesetzt.            
          */
         Properties jdbc = new Properties();
-        InputStream in = new FileInputStream("jdbc.properties");
+        InputStream in =null;
+        in = Mysql.class.getResourceAsStream("jdbc.properties");
         jdbc.load(in);
         url =jdbc.getProperty("url");
         username = jdbc.getProperty("username");

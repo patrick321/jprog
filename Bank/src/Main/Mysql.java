@@ -8,9 +8,7 @@
 
 package Main;
 
-import com.mysql.jdbc.
-Connection;
-import java.io.FileInputStream;
+import com.mysql.jdbc.Connection;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +34,7 @@ public class Mysql {
     public Mysql() throws FileNotFoundException, IOException{
         //Hier wird die .properties Datei ausgelesen und die Variablen gesetzt.
         Properties jdbc = new Properties();
-        InputStream in = new FileInputStream("jdbc.properties");
+        InputStream in = this.getClass().getResourceAsStream("resources/jdbc.properties");
         jdbc.load(in);
         url =jdbc.getProperty("url");
         username = jdbc.getProperty("username");
@@ -46,7 +44,7 @@ public class Mysql {
     }
     
     public static void selectAllfromQuery(String user) throws ClassNotFoundException, SQLException{
-        //Führt eine SQL abfrage zur Auswahl aller gespeicherten Daten aus und gibt diese aus. 
+        //Fuehrt eine SQL abfrage zur Auswahl aller gespeicherten Daten aus und gibt diese aus. 
         //Im angegebenen Fall für eine 3-Spaltige Tabelle
         Class.forName(DBCLASSNAME);
         Properties properties = new Properties();
